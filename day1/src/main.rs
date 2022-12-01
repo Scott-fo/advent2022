@@ -17,9 +17,9 @@ fn main() {
             max_heap.push(sum);
             sum = 0;
             continue;
-        } else {
-            sum = sum + entry.parse::<i64>().unwrap();
         }
+
+        sum = sum + entry.parse::<i64>().unwrap();
     }
 
     max_heap.push(sum);
