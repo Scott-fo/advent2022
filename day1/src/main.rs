@@ -1,12 +1,11 @@
-use std::fs;
-use std::io::BufReader;
-use std::io::BufRead;
 use std::collections::BinaryHeap;
+use std::fs;
+use std::io::BufRead;
+use std::io::BufReader;
 
 fn main() {
     let file_path = "puzzle-input.txt";
-    let file = fs::File::open(file_path)
-        .expect("Could not find file");
+    let file = fs::File::open(file_path).expect("Could not find file");
 
     let reader = BufReader::new(file);
     let mut max_heap = BinaryHeap::new();
