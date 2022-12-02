@@ -1,15 +1,15 @@
 fn main() {
     let input = include_str!("../puzzle-input.txt");
-    let lines = input.split("\n");
     let mut score: usize = 0;
 
-    let lines: Vec<&str> = lines.flat_map(|line| line.split("\n")).collect();
+    let lines: Vec<&str> = input.split("\n").collect();
     for line in lines.into_iter() {
         let strategy: Vec<&str> = line.split(" ").collect();
         match strategy[0] {
             "A" => score += choose_move(strategy[1], "Z", "X", "Y"),
             "B" => score += choose_move(strategy[1], "X", "Y", "Z"),
             "C" => score += choose_move(strategy[1], "Y", "Z", "X"),
+            "" => {}
             _ => panic!("Unexpected strategy"),
         }
     }
