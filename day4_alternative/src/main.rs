@@ -1,5 +1,5 @@
-use std::str::FromStr;
 use anyhow::Result;
+use std::str::FromStr;
 
 struct Assignment {
     start: usize,
@@ -48,11 +48,14 @@ impl FromStr for Assignments {
 }
 
 fn main() -> Result<()> {
-    println!("{:?}", std::fs::read_to_string("./src/puzzle-input.txt")?
-        .lines()
-        .flat_map(|line| line.parse::<Assignments>())
-        .filter(|assignments| assignments.one_assignment_contains_the_other())
-        .count());
+    println!(
+        "{:?}",
+        std::fs::read_to_string("./src/puzzle-input.txt")?
+            .lines()
+            .flat_map(|line| line.parse::<Assignments>())
+            .filter(|assignments| assignments.one_assignment_contains_the_other())
+            .count()
+    );
 
     Ok(())
 }
