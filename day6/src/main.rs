@@ -17,7 +17,7 @@ fn main() {
         }
     }
 
-    println!("{:?}", &input[..head].iter().count());
+    println!("{:?}", head);
 }
 
 fn check_for_repeat(slice: &[char]) -> bool {
