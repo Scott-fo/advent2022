@@ -27,66 +27,50 @@ fn main() {
 
 fn walk(map: &Vec<Vec<u32>>) {
     let mut trees_seen = 0;
-    let mut scenic_score: Vec<ScenicScore> = vec![];
+    let mut scenic_score_vec: Vec<ScenicScore> = vec![];
     for y_idx in 0..map.len() {
         for x_idx in 0..map[0].len() {
-            scenic_score.push(ScenicScore {
+            let mut scenic_score = ScenicScore {
                 up: 0,
                 down: 0,
                 left: 0,
                 right: 0,
-            });
+            };
 
-            let (found, _score) = check_edge(&map, x_idx, y_idx);
-            if found == true {
+            if x_idx == 0 || y_idx == 0 || x_idx == map[0].len() - 1 || y_idx == map.len() - 1 {
                 trees_seen += 1;
-                continue
+                continue;
             }
 
-            let (found, score) = check_up(&map, x_idx, y_idx, map[y_idx][x_idx], y_idx);
-            scenic_score.last_mut().unwrap().up = score;
-            if found == true {
-                trees_seen += 1;
-                //continue;
-            }
+            let (found_up, score) = check_up(&map, x_idx, y_idx, map[y_idx][x_idx], y_idx);
+            scenic_score.up = score;
 
-            let (found, score) = check_down(&map, x_idx, y_idx, map[y_idx][x_idx], y_idx);
-            scenic_score.last_mut().unwrap().down = score;
-            if found == true {
-                trees_seen += 1;
-                //continue;
-            }
+            let (found_down, score) = check_down(&map, x_idx, y_idx, map[y_idx][x_idx], y_idx);
+            scenic_score.down = score;
 
-            let (found, score) = check_left(&map, x_idx, y_idx, map[y_idx][x_idx], x_idx);
-            scenic_score.last_mut().unwrap().left = score;
-            if found == true {
-                trees_seen += 1;
-                //continue;
-            }
+            let (found_left, score) = check_left(&map, x_idx, y_idx, map[y_idx][x_idx], x_idx);
+            scenic_score.left = score;
 
-            let (found, score) = check_right(&map, x_idx, y_idx, map[y_idx][x_idx], x_idx);
-            scenic_score.last_mut().unwrap().right = score;
-            if found == true {
+            let (found_right, score) = check_right(&map, x_idx, y_idx, map[y_idx][x_idx], x_idx);
+            scenic_score.right = score;
+
+            scenic_score_vec.push(scenic_score);
+
+            if found_up || found_down || found_left || found_right {
                 trees_seen += 1;
-                //continue;
             }
         }
     }
 
-    //dbg!(trees_seen);
-    println!("Best score {:?}", scenic_score.iter().map(|score| score.get_product()).max().unwrap())
-}
-
-fn check_edge(
-    map: &Vec<Vec<u32>>,
-    x: usize,
-    y: usize,
-) -> (bool, usize) {
-    if x == 0 || y == 0 || x == map[0].len() - 1 || y == map.len() - 1 {
-        return (true, 0);
-    }
-
-    (false, 0)
+    dbg!(trees_seen);
+    println!(
+        "Best score {:?}",
+        scenic_score_vec
+            .iter()
+            .map(|score| score.get_product())
+            .max()
+            .unwrap()
+    )
 }
 
 fn check_up(
