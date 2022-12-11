@@ -59,7 +59,12 @@ fn main() {
 
     let length = monkeys.len();
 
-    for _ in 0..20 {
+    let mut lcm = 1;
+    for monkey in &monkeys {
+        lcm *= monkey.1.divisor;
+    }
+
+    for _ in 0..10000 {
         for i in 0..length {
             let mut monkey = monkeys.remove(&i).unwrap();
             if monkey.items.len() > 0 {
@@ -90,7 +95,8 @@ fn main() {
                         _ => unreachable!(),
                     }
 
-                    item /= 3;
+                    item = item % lcm;
+                    //item /= 3;
 
                     if item % monkey.divisor == 0 {
                         let target = monkey.throw_to.0;
