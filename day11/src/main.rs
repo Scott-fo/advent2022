@@ -1,5 +1,5 @@
-use std::collections::VecDeque;
 use std::collections::HashMap;
+use std::collections::VecDeque;
 
 #[derive(Debug)]
 struct Monkey {
@@ -45,12 +45,15 @@ fn main() {
 
             inspections.insert(idx, 0);
 
-            (idx, Monkey {
-                items,
-                operation: (operation[0], operation[1]),
-                divisor: divisor[0],
-                throw_to: (success[0], fail[0]),
-            })
+            (
+                idx,
+                Monkey {
+                    items,
+                    operation: (operation[0], operation[1]),
+                    divisor: divisor[0],
+                    throw_to: (success[0], fail[0]),
+                },
+            )
         })
         .collect::<HashMap<usize, Monkey>>();
 
@@ -84,7 +87,7 @@ fn main() {
                         "/" => {
                             item /= op_val;
                         }
-                        _ => unreachable!()
+                        _ => unreachable!(),
                     }
 
                     item /= 3;
